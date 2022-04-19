@@ -1,7 +1,10 @@
 #include <GLFW/glfw3.h>
+#include <iostream>
+#include <LegioConfig.h>
 
-int main(void)
+int main(int argc, char* argv[])
 {
+    std::cout << argv[0] << " Version: " << LEGIO_VERSION_MAJOR << "." << LEGIO_VERSION_MINOR << '\n'; 
     GLFWwindow* window;
 
     /* Initialize the library */
@@ -22,14 +25,7 @@ int main(void)
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
-        // /* Render here */
-        // glClear(GL_COLOR_BUFFER_BIT);
 
-        // /* Swap front and back buffers */
-        // glfwSwapBuffers(window);
-
-        // /* Poll for and process events */
-        // glfwPollEvents();
     }
 
     glfwTerminate();
