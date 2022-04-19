@@ -1,0 +1,1 @@
+cmake -DGLFW_BUILD_DOCS=off -S . -B build

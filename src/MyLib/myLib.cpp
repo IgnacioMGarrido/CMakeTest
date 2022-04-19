@@ -2,5 +2,5 @@
 
 int get_random_number()
 {
-    return 42;
+    return 44;
 }

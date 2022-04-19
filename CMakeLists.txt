@@ -6,10 +6,41 @@ add_executable(${PROJECT_NAME} src/core/main.cpp)
 
 add_subdirectory(src/MyLib)
 
-#Include directories and link directories
-target_include_directories(${PROJECT_NAME} PUBLIC src/MyLib)
-target_link_directories(${PROJECT_NAME} PUBLIC src/MyLib/)
+#### DOWNLOAD ALL SUBMODULES #####
+find_package(Git QUIET)
+if(GIT_FOUND AND EXISTS "${PROJECT_SOURCE_DIR/.git}")
+# Update submodules
+    option(GIT_SUBMODULE "Check submodules during build" ON)
+    if(GIT_SUBMODULE)
+        message(STATUS "Submodule Update")
+        execute_process(COMMAND ${GIT_EXECUTABLE} submodule update --init --recursive
+                        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+                        RESULT_VARIABLE GIT_SUBMOD_RESULT)
+        if(NOT GIT_SUBMOD_RESULT EQUAL "0")
+            message(FATAL_ERROR "git submodule update --init failed with ${GIT_SUBMOD_RESULT}, please check out submodules.")
+        endif()
+    endif() 
+endif()     
+
+####Check all Submodules ######
+if(NOT EXISTS "${PROJECT_SOURCE_DIR/vendor/glfw/CMakeLists.txt}")
+    message(FATAL_ERROR "The glfw submodule was not downloaded! GIT_SUBMODULE was turned pff or failed")
+endif()
+
+add_subdirectory(vendor/glfw)
+
+#Include directories
+target_include_directories(${PROJECT_NAME} 
+    PUBLIC src/MyLib
+    PUBLIC vendor/glfw/include
+)
+
+#Link directories
+target_link_directories(${PROJECT_NAME}
+    PUBLIC src/MyLib
+    PRIVATE vendor/glfw/src
+)
 
 #Link libraries
-target_link_libraries(${PROJECT_NAME} MyLib)
+target_link_libraries(${PROJECT_NAME} MyLib glfw)
 
