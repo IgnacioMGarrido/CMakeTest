@@ -23,8 +23,8 @@ if(GIT_FOUND AND EXISTS "${PROJECT_SOURCE_DIR/.git}")
 endif()     
 
 ####Check all Submodules ######
-if(NOT EXISTS "${PROJECT_SOURCE_DIR/vendor/glfw/CMakeLists.txt}")
-    message(FATAL_ERROR "The glfw submodule was not downloaded! GIT_SUBMODULE was turned pff or failed")
+if(NOT EXISTS "${PROJECT_SOURCE_DIR}/vendor/glfw/CMakeLists.txt")
+    message(FATAL_ERROR "The glfw submodule was not downloaded! GIT_SUBMODULE was turned off or failed")
 endif()
 
 add_subdirectory(vendor/glfw)
