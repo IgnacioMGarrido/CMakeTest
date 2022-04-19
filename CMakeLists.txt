@@ -1,8 +1,13 @@
 cmake_minimum_required(VERSION 3.10.0)
 
-project(Legio VERSION 0.1.0)
+project(Legio VERSION 1.0)
+
+#Version the project
+configure_file(LegioConfig.h.in LegioConfig.h)
 
 add_executable(${PROJECT_NAME} src/core/main.cpp)
+
+target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_BINARY_DIR})
 
 add_subdirectory(src/MyLib)
 
