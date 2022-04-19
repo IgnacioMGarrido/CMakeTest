@@ -8,7 +8,7 @@ add_subdirectory(src/MyLib)
 
 #### DOWNLOAD ALL SUBMODULES #####
 find_package(Git QUIET)
-if(GIT_FOUND AND EXISTS "${PROJECT_SOURCE_DIR/.git}")
+if(GIT_FOUND AND EXISTS "${PROJECT_SOURCE_DIR}/.git")
 # Update submodules
     option(GIT_SUBMODULE "Check submodules during build" ON)
     if(GIT_SUBMODULE)
