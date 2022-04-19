@@ -2,14 +2,22 @@ cmake_minimum_required(VERSION 3.10.0)
 
 project(Legio VERSION 1.0)
 
+option(USE_MYLIB "Library that has a function to return 44." ON)
+if(USE_MYLIB)
+    add_subdirectory(src/MyLib)
+
+    list (APPEND EXTRA_LIBS MyLib)
+    list (APPEND EXTRA_INCLUDES "${PROJECT_SOURCE_DIR}/src/MyLib")
+    list (APPEND EXTRA_LINKS MyLib)
+
+endif()
+
 #Version the project
 configure_file(LegioConfig.h.in LegioConfig.h)
 
 add_executable(${PROJECT_NAME} src/core/main.cpp)
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_BINARY_DIR})
-
-add_subdirectory(src/MyLib)
 
 #### DOWNLOAD ALL SUBMODULES #####
 find_package(Git QUIET)
@@ -36,16 +44,16 @@ add_subdirectory(vendor/glfw)
 
 #Include directories
 target_include_directories(${PROJECT_NAME} 
-    PUBLIC src/MyLib
     PUBLIC vendor/glfw/include
+    ${EXTRA_INCLUDES}
 )
 
 #Link directories
 target_link_directories(${PROJECT_NAME}
-    PUBLIC src/MyLib
     PRIVATE vendor/glfw/src
+    ${EXTRA_LIBS}
 )
 
 #Link libraries
-target_link_libraries(${PROJECT_NAME} MyLib glfw)
+target_link_libraries(${PROJECT_NAME} glfw ${EXTRA_LINKS})
 

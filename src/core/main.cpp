@@ -7,6 +7,11 @@ int main(int argc, char* argv[])
     std::cout << argv[0] << " Version: " << LEGIO_VERSION_MAJOR << "." << LEGIO_VERSION_MINOR << '\n'; 
     GLFWwindow* window;
 
+    #ifdef USE_MYLIB
+        std::cout << "Using MyLib: " << get_random_number() << '\n';
+    #else
+        std::cout << "Not using MyLib and just writing 45 instead" << '\n';
+    #endif
     /* Initialize the library */
     if (!glfwInit())
         return -1;

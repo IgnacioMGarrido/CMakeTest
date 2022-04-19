@@ -1,1 +1,1 @@
-cmake -DGLFW_BUILD_DOCS=off -S . -B build
+cmake -DGLFW_BUILD_DOCS=off -DUSE_MYLIB=On -S . -B build
