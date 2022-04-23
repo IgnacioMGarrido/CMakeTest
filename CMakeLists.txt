@@ -57,3 +57,7 @@ target_link_directories(${PROJECT_NAME}
 #Link libraries
 target_link_libraries(${PROJECT_NAME} glfw ${EXTRA_LINKS})
 
+#Install
+install(TARGETS ${PROJECT_NAME} DESTINATION bin)
+install(FILES "${PROJECT_BINARY_DIR}/LegioConfig.h" DESTINATION include)
+
